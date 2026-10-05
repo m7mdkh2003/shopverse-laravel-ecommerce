@@ -1,0 +1,3 @@
+@extends('layouts.store')
+@section('title','Product Archive | Admin')
+@section('content')<section class="admin-shell"><div class="container"><h1>Product archive</h1>@include('admin._nav')<div class="panel table-wrap"><table class="data-table"><thead><tr><th>Product</th><th>Deleted</th><th></th></tr></thead><tbody>@forelse($products as $product)<tr><td>{{ $product->name }}</td><td>{{ $product->deleted_at?->diffForHumans() }}</td><td><form method="POST" action="{{ route('admin.products.restore',$product->id) }}">@csrf @method('PATCH')<button class="btn btn-sm">Restore</button></form></td></tr>@empty<tr><td colspan="3">Archive is empty.</td></tr>@endforelse</tbody></table></div>{{ $products->links('partials.pagination') }}</div></section>@endsection

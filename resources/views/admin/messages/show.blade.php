@@ -1,0 +1,3 @@
+@extends('layouts.store')
+@section('title','Message | Admin')
+@section('content')<section class="admin-shell"><div class="container"><h1>{{ $message->subject }}</h1>@include('admin._nav')<div class="panel narrow"><p><strong>{{ $message->name }}</strong> &lt;{{ $message->email }}&gt;</p><p>{{ $message->created_at->format('M d, Y H:i') }}</p><hr><p style="white-space:pre-wrap">{{ $message->message }}</p><form method="POST" action="{{ route('admin.messages.destroy',$message) }}">@csrf @method('DELETE')<button class="btn danger-btn" onclick="return confirm('Delete this message?')">Delete message</button></form></div></div></section>@endsection

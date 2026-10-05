@@ -1,0 +1,8 @@
+@extends('layouts.store')
+@section('title','Cart | ShopVerse')
+@section('content')
+<section class="page-hero"><div class="container"><span class="eyebrow">Basket</span><h1>Your cart</h1></div></section>
+<section class="section container cart-layout"><div class="panel">
+@forelse($items as $item)<div class="cart-line"><img src="{{ asset($item->product->image) }}" alt=""><div class="cart-main"><a href="{{ route('products.show',$item->product) }}"><h3>{{ $item->product->name }}</h3></a><p>${{ number_format((float)$item->product->price,2) }} each</p></div><form method="POST" action="{{ route('cart.update',$item->product) }}" class="cart-qty">@csrf @method('PATCH')<input type="number" name="quantity" min="1" max="{{ $item->product->stock }}" value="{{ $item->quantity }}"><button class="btn btn-sm">Update</button></form><strong>${{ number_format((float)$item->product->price*$item->quantity,2) }}</strong><form method="POST" action="{{ route('cart.destroy',$item->product) }}">@csrf @method('DELETE')<button class="icon-button danger"><i class="bi bi-trash"></i></button></form></div>@empty<div class="empty-state"><h2>Your cart is empty</h2><a class="btn btn-primary" href="{{ route('shop') }}">Continue shopping</a></div>@endforelse
+</div>@if($items->isNotEmpty())<aside class="panel order-summary"><h2>Summary</h2><div><span>Subtotal</span><strong>${{ number_format($subtotal,2) }}</strong></div><div><span>Shipping</span><span>{{ $subtotal >= 200 ? 'Free' : '$12.00' }}</span></div><div class="summary-total"><span>Total</span><strong>${{ number_format($subtotal + ($subtotal>=200?0:12),2) }}</strong></div><a href="{{ route('checkout.create') }}" class="btn btn-lg btn-primary">Checkout</a></aside>@endif</section>
+@endsection

@@ -1,0 +1,3 @@
+@extends('layouts.store')
+@section('title','Register | ShopVerse')
+@section('content')<section class="auth-shell"><form class="panel auth-card" method="POST" action="{{ route('register.store') }}">@csrf<span class="eyebrow">Join ShopVerse</span><h1>Create account</h1><label>Name<input name="name" value="{{ old('name') }}" required></label><label>Email<input type="email" name="email" value="{{ old('email') }}" required></label><label>Password<input type="password" name="password" required></label><label>Confirm password<input type="password" name="password_confirmation" required></label><button class="btn btn-lg btn-primary">Register</button><p>Already have an account? <a href="{{ route('login') }}">Login</a></p></form></section>@endsection
